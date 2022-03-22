@@ -1,0 +1,9 @@
+.img-uploader__user-image-preview {
+  width: 64px;
+}
+
+.img-uploader__border-image {
+  width: 65px;
+  z-index: 1;
+  position: absolute;
+}
