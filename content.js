@@ -82,6 +82,40 @@ function ImageUploader() {
  */
 const dropZone = () => document.querySelector('[data-js="drop-zone"]')
 
+function _blobToBase64(blob) {
+  const regex = /(data:image\/(png|jpeg|jpg);base64,)(.*)/
+  const match = blob.match(regex)
+
+  if (!match) {
+    return false
+  }
+
+  return match[3]
+}
+
+function uploadToImgur (blob) {
+  let myHeaders = new Headers();
+  myHeaders.append("Authorization", "Client-ID 18b07c2f02b1435");
+
+  let formdata = new FormData();
+  formdata.append("image", _blobToBase64(blob));
+
+  let requestOptions = {
+    method: 'POST',
+    headers: myHeaders,
+    body: formdata,
+    redirect: 'follow'
+  };
+
+  return fetch("https://api.imgur.com/3/image", requestOptions)
+    .then(response => {
+      console.log("⭐️ uploadToImgur")
+      return response.json()
+    })
+    .then(result => result.data.link)
+    .catch(error => console.log("error", error));
+}
+
 function _drawImage(imageSrc, imageSize) {
   const $canvas = document.querySelector('[data-js="canvas"]')
   const $preview = document.querySelector('[data-js="preview-img"]')
@@ -89,9 +123,10 @@ function _drawImage(imageSrc, imageSize) {
   const img = new Image(imageSize, imageSize);
 
   img.src = imageSrc
+  img.crossOrigin = 'anonymous';
   img.onload = () => {
     context.drawImage(img, 0, 0, imageSize, imageSize);
-    $preview.src = $canvas.toDataURL()
+    $preview.src = $canvas.toDataURL("image/jpeg", .7)
   };
 }
 
@@ -127,9 +162,10 @@ function initPreviewImage() {
   _drawImage(match[2] ,64)
 }
 
-function onCopyImage() {
+async function onCopyImage() {
   const $preview = document.querySelector('[data-js="preview-img"]')
-  const markdownImage = `![__hwt-img__](${$preview.src})`
+  const link = await uploadToImgur($preview.src) || $preview.src
+  const markdownImage = `![__hwt-img__](${link})`
 
   navigator.clipboard.writeText(markdownImage).catch(err => {
     console.error('❌ Copy Image: Could not copy text: ', err);
@@ -165,12 +201,10 @@ function onDrop(dropEvent) {
 
 function onDragIn(dropEvent) {
   dropEvent.preventDefault()
-  console.log("Drag In")
   dropZone().classList.add("drop-zone--in");
 }
 
 function onDragOut(dropEvent) {
-  console.log("Drag Out")
   dropZone().classList.remove("drop-zone--in");
 }
 
@@ -191,7 +225,6 @@ async function onPushUrl() {
 
 
 function insertImageForm() {
-  console.log("🤡 insertImageForm()")
   // Insert image uploader section
   document.querySelector(".task-modal-header .form-group").insertAdjacentHTML('afterend', ImageUploader());
 
@@ -214,10 +247,13 @@ function insertImageForm() {
 }
 
 
+// @bug(vincent): N'est pas trigger par l'event quand on ajoute un item
 window.addEventListener("load", () => {
   console.log("⭐️ Window loaded()")
-  document.querySelectorAll('.task-content').forEach(
-    node => node.addEventListener('click', insertImageForm)
+  const $taskItemCollection = document.querySelectorAll('.task-content')
+
+  $taskItemCollection.forEach(
+    taskItem => taskItem.addEventListener('click', insertImageForm)
   )
 });
 
