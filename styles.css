@@ -4,6 +4,9 @@
 .bold {
   font-weight: bold;
 }
+.text-error {
+  color: var(--danger);
+}
 
 .preview-canvas {
   visibility: hidden;
@@ -16,15 +19,28 @@
 }
 
 /* ---- img-uploader ---- */
-.img-uploader {
-
-}
 
 /* Drop zone */
 .img-uploader__drop-zone {
   border: 2px dashed #724C17;
   padding: 20px;
   background: rgba(255,255,255,.2);
+  transition: all 300ms;
+  border-radius: 4px;
+}
+
+/* Drop In */
+.drop-zone--in {
+  background: #beb5cd;
+  border-color: var(--indigo);
+  transform: scale(1.01);
+  border-radius: 10px;
+}
+
+
+/* Upload icon */
+.img-uploader__upload-icon {
+  opacity: .2;
 }
 
 /* Input file */
@@ -62,6 +78,7 @@
   display: flex;
   align-items: center;
   background: rgba(255,255,255,.2);
+  border-radius: 4px;
 }
 
 /* Quality */
