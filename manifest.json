@@ -1,6 +1,6 @@
 {
-  "name": "Getting Started Example",
-  "description": "Build an Extension!",
+  "name": "Habitica Theme: World of Warcraft",
+  "description": "@todo",
   "version": "1.0",
   "manifest_version": 3,
   "background": {

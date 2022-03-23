@@ -1,9 +1,81 @@
-.img-uploader__user-image-preview {
-  width: 64px;
+.pointer {
+  cursor: pointer;
+}
+.bold {
+  font-weight: bold;
 }
 
-.img-uploader__border-image {
-  width: 65px;
-  z-index: 1;
+.preview-canvas {
+  visibility: hidden;
   position: absolute;
+}
+
+.preview-img {
+  width: 64px;
+  height: 64px;
+}
+
+/* ---- img-uploader ---- */
+.img-uploader {
+
+}
+
+/* Drop zone */
+.img-uploader__drop-zone {
+  border: 2px dashed #724C17;
+  padding: 20px;
+  background: rgba(255,255,255,.2);
+}
+
+/* Input file */
+.img-uploader__input-file {
+  width: 0px;
+  height: 0px;
+  opacity: 0;
+  overflow: hidden;
+  position: absolute;
+  z-index: -1;
+}
+
+.img-uploader__browse {
+  font-weight: bold;
+  text-decoration: underline;
+}
+
+.img-uploader__or {
+  font-weight: bold;
+  font-size: 33px;
+  margin-top: 4px;
+}
+
+/* Input Url */
+.img-uploader__input-url {
+  height: 33px;
+  border-top-right-radius: 0;
+  border-bottom-right-radius: 0;
+}
+
+
+/* Preview */
+.img-uploader__preview-zone {
+  height: 100%;
+  display: flex;
+  align-items: center;
+  background: rgba(255,255,255,.2);
+}
+
+/* Quality */
+
+/* Send image */
+.img-uploader__send-btn {
+  width: auto;
+  height: 33px;
+  border-top-left-radius: 0 !important;
+  border-bottom-left-radius: 0 !important;
+}
+
+/* Copy image */
+.img-uploader__copy-btn {
+  width: 170px;
+  height: 43px;
 }
