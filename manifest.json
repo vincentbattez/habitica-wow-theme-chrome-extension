@@ -21,7 +21,7 @@
       "matches": [
         "https://habitica.com/"
       ],
-      "css": ["/styles.css"],
+      "css": ["/styles.css", "/adapt.css"],
       "js": ["/content.js"]
     }
   ],

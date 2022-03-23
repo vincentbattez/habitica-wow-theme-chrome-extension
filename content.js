@@ -1,7 +1,7 @@
 console.log("✅ Habitica Wow Theme Loaded")
 
 function ImageUploader() {
-  const colorClass = 'task-neutral-modal-text'
+  const colorClass = Array.from(document.querySelector('.task-modal-header').classList).find(classItem => classItem.includes('-modal-bg')).replace('bg', 'text')
   const uploadIcon = chrome.runtime.getURL('/images/hud/upload.svg')
 
   return `
@@ -32,7 +32,7 @@ function ImageUploader() {
             <input
               id="input-file"
               data-js="input-url"
-              class="img-uploader__input-url w-100 mr-2"
+              class="img-uploader__input-url w-100 mr-2 ${colorClass}"
               type="url"
               placeholder="https://via.placeholder.com/64x64"
             >
@@ -80,7 +80,7 @@ function ImageUploader() {
 /**
  * @returns {Element}
  */
-const dropZone = () => document.querySelector('[data-js="drop-zone"]')
+const getDropZone = () => document.querySelector('[data-js="drop-zone"]')
 
 function _blobToBase64(blob) {
   const regex = /(data:image\/(png|jpeg|jpg);base64,)(.*)/
@@ -201,14 +201,14 @@ function onDrop(dropEvent) {
 
 function onDragIn(dropEvent) {
   dropEvent.preventDefault()
-  dropZone().classList.add("drop-zone--in");
+  getDropZone().classList.add("drop-zone--in");
 }
 
 function onDragOut(dropEvent) {
-  dropZone().classList.remove("drop-zone--in");
+  getDropZone().classList.remove("drop-zone--in");
 }
 
-async function onPushUrl() {
+async function onUpdateImageFormUrl() {
   const $urlField = document.querySelector('[data-js="input-url"]')
   const $errorMessage = document.querySelector('[data-js="url-error"]')
   const blob = await _fetchBlobFromUrl($urlField.value)
@@ -216,53 +216,33 @@ async function onPushUrl() {
 
   if (!blob) {
     $errorMessage.innerHTML = "Une erreur s'est produite"
+    setAudio('Error_Cors')
     return
   }
 
   _drawImage(blob, 64)
 }
 
-
-
-function insertImageForm() {
-  // Insert image uploader section
-  document.querySelector(".task-modal-header .form-group").insertAdjacentHTML('afterend', ImageUploader());
-
-  const $inputFile = document.querySelector('[data-js="input-file"]')
-  const $qualitySelect = document.querySelector('[data-js="quality-select"]')
-  const $copyImageSubmit = document.querySelector('[data-js="copy-img-submit"]')
-  const $urlSubmit = document.querySelector('[data-js="url-submit"]')
-  const $dropZone = dropZone()
-
-  initPreviewImage()
-  $inputFile.addEventListener('input', onFileChange)
-  $qualitySelect.addEventListener('input', onQualityChange)
-  $copyImageSubmit.addEventListener('click', onCopyImage)
-  $urlSubmit.addEventListener('click', onPushUrl)
-  // Drag & Drop Listeners
-  $dropZone.addEventListener('dragover', onDragIn)
-  $dropZone.addEventListener('dragleave', onDragOut)
-  $dropZone.addEventListener('dragend', onDragOut)
-  $dropZone.addEventListener('drop', onDrop)
+function onCreateTask(keyEvent) {
+  if (keyEvent.key === "Enter") {
+    setAudio('Create_Task')
+  }
 }
 
+function setAudio(audioName) {
+  const $audio = document.querySelector('#sound');
+  const $audioSourceCollection = document.querySelectorAll("#sound source")
+  const audioSrc = chrome.runtime.getURL(`/audio/${audioName}.ogg`)
 
-// @bug(vincent): N'est pas trigger par l'event quand on ajoute un item
-window.addEventListener("load", () => {
-  console.log("⭐️ Window loaded()")
-  const $taskItemCollection = document.querySelectorAll('.task-content')
+  $audioSourceCollection.forEach($audioSource => $audioSource.src = audioSrc)
+  $audio.load()
+  $audio.play()
+}
 
-  $taskItemCollection.forEach(
-    taskItem => taskItem.addEventListener('click', insertImageForm)
-  )
-
-  replaceSounds()
-});
-
-function _changeAudio(mutationsList) {
+function _wowSound(mutationsList) {
   mutationsList.forEach(mutation => {
     let $audioSource = mutation.type === 'childList'
-      ? mutation.target.querySelector('source')
+      ? mutation.addedNodes[0]
       : mutation.target
 
     if ($audioSource.src.includes('chrome-extension://')) {
@@ -276,13 +256,13 @@ function _changeAudio(mutationsList) {
       .split(".").shift()
 
     // Change audio
-    $audioSource.src = chrome.runtime.getURL(`/audio/${audioName}.mp3`)
+    setAudio(audioName)
   })
 }
 
 function replaceSounds() {
   const $audio = document.querySelector('#sound');
-  const observer = new MutationObserver(_changeAudio);
+  const observer = new MutationObserver(_wowSound);
 
   observer.observe($audio, {
     attributes: true,
@@ -291,3 +271,56 @@ function replaceSounds() {
   });
 }
 
+function insertImageForm() {
+  setAudio('Quest_Open')
+  // Insert image uploader section
+  document.querySelector(".task-modal-header .form-group").insertAdjacentHTML('afterend', ImageUploader());
+
+  const $inputFile = document.querySelector('[data-js="input-file"]')
+  const $qualitySelect = document.querySelector('[data-js="quality-select"]')
+  const $copyImageSubmit = document.querySelector('[data-js="copy-img-submit"]')
+  const $urlSubmit = document.querySelector('[data-js="url-submit"]')
+  const $dropZone = getDropZone()
+
+  const $submitTaskBtn = document.querySelector('.task-modal-header .btn')
+  const $closeModal = document.querySelector('.cancel-task-btn')
+  const $deleteTask = document.querySelector('.delete-task-btn')
+
+  initPreviewImage()
+  // Close modal
+  $closeModal.addEventListener('click', () => { setAudio('Quest_Close') })
+  $deleteTask.addEventListener('click', () => { setAudio('Quest_Delete') })
+  // Image Generator
+  $inputFile.addEventListener('input', onFileChange)
+  $qualitySelect.addEventListener('input', onQualityChange)
+  $copyImageSubmit.addEventListener('click', onCopyImage)
+  $urlSubmit.addEventListener('click', onUpdateImageFormUrl)
+  // Drag & Drop
+  $dropZone.addEventListener('dragover', onDragIn)
+  $dropZone.addEventListener('dragleave', onDragOut)
+  $dropZone.addEventListener('dragend', onDragOut)
+  $dropZone.addEventListener('drop', onDrop)
+  // Submit task
+  $submitTaskBtn.addEventListener('click', onCreateTask)
+}
+
+// @bug(vincent): N'est pas trigger par l'event quand on ajoute un item
+// @perf(vincent): remove listeners
+window.addEventListener("load", () => {
+  console.log("⭐️ Window loaded()")
+  const $taskItemCollection = document.querySelectorAll('.task-content')
+  const $quickAddCollection = document.querySelectorAll('.quick-add')
+  const $audio = document.querySelector("#sound")
+
+  $taskItemCollection.forEach(
+    $taskItem => $taskItem.addEventListener('click', insertImageForm)
+  )
+  // Create Task
+  $quickAddCollection.forEach(
+    $quickAdd => $quickAdd.addEventListener('keypress', onCreateTask)
+  )
+
+  $audio.insertAdjacentHTML('afterbegin', `<source type="audio/ogg" src="">`);
+
+  replaceSounds()
+});

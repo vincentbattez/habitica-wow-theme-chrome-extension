@@ -1,3 +1,12 @@
+body {
+  --worst: #6c0406;
+  --bad: #7f3300;
+  --neutral: #794b00;
+  --good: #005737;
+  --better: #005158;
+  --best: #033f5e;
+}
+
 .pointer {
   cursor: pointer;
 }
@@ -22,12 +31,19 @@
 
 /* Drop zone */
 .img-uploader__drop-zone {
-  border: 2px dashed #724C17;
+  border: 2px dashed;
   padding: 20px;
   background: rgba(255,255,255,.2);
   transition: all 300ms;
   border-radius: 4px;
 }
+
+.task-good-worst-text .img-uploader__drop-zone { border-color: var(--worst); }
+.task-good-bad-text .img-uploader__drop-zone { border-color: var(--bad); }
+.task-good-neutral-text .img-uploader__drop-zone { border-color: var(--neutral); }
+.task-good-good-text .img-uploader__drop-zone { border-color: var(--good); }
+.task-good-better-text .img-uploader__drop-zone { border-color: var(--better); }
+.task-good-best-text .img-uploader__drop-zone { border-color: var(--best); }
 
 /* Drop In */
 .drop-zone--in {

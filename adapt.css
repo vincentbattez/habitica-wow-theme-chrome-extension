@@ -1,0 +1,174 @@
+/* + - icons */
+.icons[data-v-3f186052] {
+  height: 100% !important;
+  margin: 0;
+  position: absolute;
+  top: 0;
+  right: 40px;
+}
+.habit-control .svg-icon {
+  display:flex;
+}
+/* --------TASKS-------- */
+
+/* Containers */
+.tasks-columns {
+  flex-wrap: nowrap;
+  overflow: scroll;
+}
+.tasks-column {
+  flex: 0 0 33%;
+  max-width: none;
+}
+.task-content {
+  padding: 0!important;
+  border: none!important;
+}
+/* Task title */
+.task-title {
+  font-size: 20px !important;
+  margin: 0 !important;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+/* Task notes */
+.task-notes {
+  padding-right: 12px !important;
+}
+.task-notes p:last-child {
+  margin: 0;
+}
+.task-clickable-area {
+  width: calc(100% - 40px);
+  display: flex;
+  flex-direction: row-reverse;
+  justify-content: flex-end;
+  border: none!important;
+  padding: 0!important;
+  padding-right: 26px !important;
+}
+/* Dropdown menu */
+.dropdown.task-dropdown {
+  display: none;
+}
+
+/* -------- Counters -------- */
+.icons-right {
+  height: 100%;
+  flex-direction: column;
+  align-items: flex-end;
+}
+
+.icons-right > div:first-child {
+  height: 100%;
+}
+
+.svg-icon.streak {
+  display: none;
+}
+
+.icons-right div > span {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  justify-content: space-around;
+  text-align: right;
+}
+
+.icons-right div > span > span:nth-child(2) {
+  display: none;
+}
+
+.icons-right .tags {
+  position: absolute;
+  left: -15px;
+  bottom: 8px;
+}
+
+.daily .icons-right .tags {
+  left: 0px;
+  bottom: 6px;
+}
+
+.type_todo .icons-right .tags {
+  left: -16px;
+  bottom: auto;
+  top: 10px;
+}
+
+/* -------- + et - button -------- */
+.task-control {
+  padding: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100% !important;
+  height: 100% !important;
+  border-radius: 0;
+  background: initial !important;
+  transition: background 150ms ease-in-out;
+}
+/* Hover */
+.tasks-list .habit-control:not(.task-not-scoreable):hover {
+  background: rgba(26, 24, 29, .1)!important;
+}
+.left-control, .right-control {
+  position: absolute;
+  right: 0;
+  width: 32px;
+  height: 50%;
+  min-height: auto !important;
+  justify-content: center !important;
+  align-items: center;
+  padding-top: 0 !important;
+  border-color: transparent !important;
+  border-radius: 0 !important;
+  z-index: 100;
+  border: none !important;
+}
+/* + button */
+.left-control {
+  top: 0;
+}
+/* - button */
+.right-control {
+  bottom: 0;
+  min-height: auto !important;
+  border-top: 1px solid #e5e5e5 !important;
+}
+/* disabled +- button */
+.tasks-list .task .habit-control.task-disabled-habit-control-inner {
+  background: initial !important;
+  cursor: not-allowed;
+  border: none !important;
+}
+
+/* -------- Checkbox -------- */
+.daily .left-control, .todo .left-control {
+  height: 100%;
+  bottom: 0;
+}
+.daily-todo-control {
+  margin: 0 !important;
+  border-radius: 0 !important;
+}
+.daily .daily-todo-control:hover {
+  background: hsla(0,0%,100%,.3)!important;
+}
+.daily-todo-control .svg-icon.check {
+  display: block;
+}
+.daily-todo-control .svg-icon.check,
+.habit-control {
+  color: rgb(0, 0, 0, 20%) !important;
+}
+/* Disabled daily */
+.task-disabled-daily-todo-control-content {
+  background: #e4e4e4 !important;
+  filter: grayscale(1);
+}
+/* Disabled checkbox */
+.task-disabled-daily-todo-control-bg {
+  background: #c9c9c9!important;
+}
