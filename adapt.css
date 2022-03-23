@@ -1,174 +1,174 @@
 /* + - icons */
-.icons[data-v-3f186052] {
+#app .icons[data-v-3f186052] {
   height: 100% !important;
-  margin: 0;
-  position: absolute;
-  top: 0;
-  right: 40px;
+  margin: 0!important;
+  position: absolute!important;
+  top: 0!important;
+  right: 40px!important;
 }
-.habit-control .svg-icon {
-  display:flex;
+#app .habit-control .svg-icon {
+  display:flex!important;
 }
 /* --------TASKS-------- */
 
 /* Containers */
-.tasks-columns {
-  flex-wrap: nowrap;
-  overflow: scroll;
+#app .tasks-columns {
+  flex-wrap: nowrap!important;
+  overflow: scroll!important;
 }
-.tasks-column {
-  flex: 0 0 33%;
-  max-width: none;
+#app .tasks-column {
+  flex: 0 0 33%!important;
+  max-width: none!important;
 }
-.task-content {
+#app .task-content {
   padding: 0!important;
   border: none!important;
 }
 /* Task title */
-.task-title {
+#app .task-title {
   font-size: 20px !important;
   margin: 0 !important;
-  display: flex;
-  justify-content: center;
-  align-items: center;
+  display: flex!important;
+  justify-content: center!important;
+  align-items: center!important;
 }
 /* Task notes */
-.task-notes {
+#app .task-notes {
   padding-right: 12px !important;
 }
-.task-notes p:last-child {
-  margin: 0;
+#app .task-notes p:last-child {
+  margin: 0!important;
 }
-.task-clickable-area {
-  width: calc(100% - 40px);
-  display: flex;
-  flex-direction: row-reverse;
-  justify-content: flex-end;
+#app .task-clickable-area {
+  width: calc(100% - 40px)!important;
+  display: flex!important;
+  flex-direction: row-reverse!important;
+  justify-content: flex-end!important;
   border: none!important;
   padding: 0!important;
   padding-right: 26px !important;
 }
 /* Dropdown menu */
-.dropdown.task-dropdown {
-  display: none;
+#app .dropdown.task-dropdown {
+  display: none!important;
 }
 
 /* -------- Counters -------- */
-.icons-right {
-  height: 100%;
-  flex-direction: column;
-  align-items: flex-end;
+#app .icons-right {
+  height: 100%!important;
+  flex-direction: column!important;
+  align-items: flex-end!important;
 }
 
-.icons-right > div:first-child {
-  height: 100%;
+#app .icons-right > div:first-child {
+  height: 100%!important;
 }
 
-.svg-icon.streak {
-  display: none;
+#app .svg-icon.streak {
+  display: none!important;
 }
 
-.icons-right div > span {
-  display: flex;
-  flex-direction: column;
-  height: 100%;
-  justify-content: space-around;
-  text-align: right;
+#app .icons-right div > span {
+  display: flex!important;
+  flex-direction: column!important;
+  height: 100%!important;
+  justify-content: space-around!important;
+  text-align: right!important;
 }
 
-.icons-right div > span > span:nth-child(2) {
-  display: none;
+#app .icons-right div > span > span:nth-child(2) {
+  display: none!important;
 }
 
-.icons-right .tags {
-  position: absolute;
-  left: -15px;
-  bottom: 8px;
+#app .icons-right .tags {
+  position: absolute!important;
+  left: -15px!important;
+  bottom: 8px!important;
 }
 
-.daily .icons-right .tags {
-  left: 0px;
-  bottom: 6px;
+#app .daily .icons-right .tags {
+  left: 0px!important;
+  bottom: 6px!important;
 }
 
-.type_todo .icons-right .tags {
-  left: -16px;
-  bottom: auto;
-  top: 10px;
+#app .type_todo .icons-right .tags {
+  left: -16px!important;
+  bottom: auto!important;
+  top: 10px!important;
 }
 
 /* -------- + et - button -------- */
-.task-control {
-  padding: 0;
-  display: flex;
-  align-items: center;
-  justify-content: center;
+#app .task-control {
+  padding: 0!important;
+  display: flex!important;
+  align-items: center!important;
+  justify-content: center!important;
   width: 100% !important;
   height: 100% !important;
-  border-radius: 0;
+  border-radius: 0!important;
   background: initial !important;
-  transition: background 150ms ease-in-out;
+  transition: background 150ms ease-in-out!important;
 }
 /* Hover */
-.tasks-list .habit-control:not(.task-not-scoreable):hover {
+#app .tasks-list .habit-control:not(.task-not-scoreable):hover {
   background: rgba(26, 24, 29, .1)!important;
 }
-.left-control, .right-control {
-  position: absolute;
-  right: 0;
-  width: 32px;
-  height: 50%;
+#app .left-control, #app .right-control {
+  position: absolute!important;
+  right: 0!important;
+  width: 32px!important;
+  height: 50%!important;
   min-height: auto !important;
   justify-content: center !important;
-  align-items: center;
+  align-items: center!important;
   padding-top: 0 !important;
   border-color: transparent !important;
   border-radius: 0 !important;
-  z-index: 100;
+  z-index: 100!important;
   border: none !important;
 }
 /* + button */
-.left-control {
-  top: 0;
+#app .left-control {
+  top: 0!important;
 }
 /* - button */
-.right-control {
-  bottom: 0;
+#app .right-control {
+  bottom: 0!important;
   min-height: auto !important;
   border-top: 1px solid #e5e5e5 !important;
 }
 /* disabled +- button */
-.tasks-list .task .habit-control.task-disabled-habit-control-inner {
+#app .tasks-list .task .habit-control.task-disabled-habit-control-inner {
   background: initial !important;
-  cursor: not-allowed;
+  cursor: not-allowed!important;
   border: none !important;
 }
 
 /* -------- Checkbox -------- */
-.daily .left-control, .todo .left-control {
-  height: 100%;
-  bottom: 0;
+#app .daily .left-control, #app .todo .left-control {
+  height: 100%!important;
+  bottom: 0!important;
 }
-.daily-todo-control {
+#app .daily-todo-control {
   margin: 0 !important;
   border-radius: 0 !important;
 }
-.daily .daily-todo-control:hover {
+#app .daily .daily-todo-control:hover {
   background: hsla(0,0%,100%,.3)!important;
 }
-.daily-todo-control .svg-icon.check {
-  display: block;
+#app .daily-todo-control .svg-icon.check {
+  display: block!important;
 }
-.daily-todo-control .svg-icon.check,
-.habit-control {
+#app .daily-todo-control .svg-icon.check,
+#app .habit-control {
   color: rgb(0, 0, 0, 20%) !important;
 }
 /* Disabled daily */
-.task-disabled-daily-todo-control-content {
+#app .task-disabled-daily-todo-control-content {
   background: #e4e4e4 !important;
-  filter: grayscale(1);
+  filter: grayscale(1)!important;
 }
 /* Disabled checkbox */
-.task-disabled-daily-todo-control-bg {
+#app .task-disabled-daily-todo-control-bg {
   background: #c9c9c9!important;
 }
