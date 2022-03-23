@@ -66,8 +66,8 @@
 
 /* Quality */
 
-/* Send image */
-.img-uploader__send-btn {
+/* Update URL image */
+.img-uploader__update-btn {
   width: auto;
   height: 33px;
   border-top-left-radius: 0 !important;

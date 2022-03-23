@@ -33,8 +33,8 @@ function ImageUploader() {
               placeholder="https://via.placeholder.com/64x64"
             >
           </div>
-          <button data-js="..." type="button"class="img-uploader__send-btn btn btn-secondary">
-            Send
+          <button data-js="url-submit" type="button"class="img-uploader__update-btn btn btn-secondary">
+            Update
           </button>
         </div>
       </div>
@@ -130,11 +130,18 @@ function onQualityChange(inputEvent) {
   _drawImage(imageSrc, borderSize)
 }
 
-async function onFileChange(inputEvent) {
+function onFileChange(inputEvent) {
   const imageSize = 64;
   const blob = URL.createObjectURL(inputEvent.target.files[0])
 
   _drawImage(blob, imageSize)
+}
+
+async function onPushUrl() {
+  const $urlField = document.querySelector('[data-js="input-url"]')
+  const blob = await _fetchBlobFromUrl($urlField.value)
+
+  _drawImage(blob, 64)
 }
 
 
@@ -146,11 +153,13 @@ function insertImageForm() {
   const $inputFile = document.querySelector('[data-js="input-file"]')
   const $qualitySelect = document.querySelector('[data-js="quality-select"]')
   const $copyImageSubmit = document.querySelector('[data-js="copy-img-submit"]')
+  const $urlSubmit = document.querySelector('[data-js="url-submit"]')
 
   initPreviewImage()
   $inputFile.addEventListener('input', onFileChange)
   $qualitySelect.addEventListener('input', onQualityChange)
   $copyImageSubmit.addEventListener('click', onCopyImage)
+  $urlSubmit.addEventListener('click', onPushUrl)
 }
 
 document.querySelectorAll('.task-content').forEach(
