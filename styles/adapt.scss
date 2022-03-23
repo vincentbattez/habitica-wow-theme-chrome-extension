@@ -87,7 +87,7 @@
 }
 
 #app .daily .icons-right .tags {
-  left: 0px!important;
+  left: 0!important;
   bottom: 6px!important;
 }
 
@@ -161,7 +161,7 @@
 }
 #app .daily-todo-control .svg-icon.check,
 #app .habit-control {
-  color: rgb(0, 0, 0, 20%) !important;
+  color: rgba(0, 0, 0, 20%) !important;
 }
 /* Disabled daily */
 #app .task-disabled-daily-todo-control-content {
