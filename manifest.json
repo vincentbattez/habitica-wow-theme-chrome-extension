@@ -10,7 +10,8 @@
     {
       "resources": [
         "/images/*",
-        "/js/*"
+        "/js/*",
+        "/audio/*"
       ],
       "matches": [ "https://habitica.com/*" ]
     }

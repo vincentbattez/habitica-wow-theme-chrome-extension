@@ -255,6 +255,39 @@ window.addEventListener("load", () => {
   $taskItemCollection.forEach(
     taskItem => taskItem.addEventListener('click', insertImageForm)
   )
+
+  replaceSounds()
 });
 
+function _changeAudio(mutationsList) {
+  mutationsList.forEach(mutation => {
+    let $audioSource = mutation.type === 'childList'
+      ? mutation.target.querySelector('source')
+      : mutation.target
+
+    if ($audioSource.src.includes('chrome-extension://')) {
+      return
+    }
+
+    // Get audio name
+    const audioName = $audioSource
+      .getAttribute('src')
+      .split('/').pop()
+      .split(".").shift()
+
+    // Change audio
+    $audioSource.src = chrome.runtime.getURL(`/audio/${audioName}.mp3`)
+  })
+}
+
+function replaceSounds() {
+  const $audio = document.querySelector('#sound');
+  const observer = new MutationObserver(_changeAudio);
+
+  observer.observe($audio, {
+    attributes: true,
+    childList: true,
+    subtree: true
+  });
+}
 
