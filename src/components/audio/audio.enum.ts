@@ -1,0 +1,17 @@
+export enum AudioEnum {
+  'Achievement_Unlocked' = 'Achievement_Unlocked',
+  'Chat' = 'Chat',
+  'Create_Task' = 'Create_Task',
+  'Daily' = 'Daily',
+  'Death' = 'Death',
+  'Error_Cors' = 'Error_Cors',
+  'Item_Drop' = 'Item_Drop',
+  'Level_Up' = 'Level_Up',
+  'Minus_Habit' = 'Minus_Habit',
+  'Plus_Habit' = 'Plus_Habit',
+  'Quest_Close' = 'Quest_Close',
+  'Quest_Delete' = 'Quest_Delete',
+  'Quest_Open' = 'Quest_Open',
+  'Reward' = 'Reward',
+  'Todo' = 'Todo',
+}
