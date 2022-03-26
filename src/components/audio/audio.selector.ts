@@ -1,4 +1,4 @@
-import {AudioEnum} from "./audio.enum";
+import { AudioEnum } from "./audio.enum";
 
 export const audioSelector = {
   audio: (): HTMLAudioElement => (
@@ -9,5 +9,5 @@ export const audioSelector = {
   ),
   link: (audioName: AudioEnum): string => (
     chrome.runtime.getURL(`/audio/${audioName}.ogg`)
-  )
+  ),
 }

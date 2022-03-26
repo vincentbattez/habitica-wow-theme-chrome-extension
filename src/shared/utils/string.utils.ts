@@ -1,4 +1,4 @@
-import {taskSelector} from "../shared/selectors/task.selector";
+import { TaskSelector } from "../selectors/taskSelector";
 
 export const blobToBase64 = (blob: string): string => {
   const regex = /(data:image\/(png|jpeg|jpg);base64,)(.*)/
@@ -11,7 +11,7 @@ export const blobToBase64 = (blob: string): string => {
   return match[3]
 }
 
-export const _fetchBlobFromUrl = async (url: string): Promise<string> => {
+export const fetchBlobFromUrl = async (url: string): Promise<string> => {
   let urlResponse
   try {
     urlResponse = await fetch(url)
@@ -25,7 +25,7 @@ export const _fetchBlobFromUrl = async (url: string): Promise<string> => {
 }
 
 export const getImageUrlFromNote = (): string => {
-  const note = taskSelector.inputNote().value
+  const note = TaskSelector.inputNote().value
   const regex = /!(\[__hwt-img__])\((.*)\)/
 
   return note.match(regex)?.[2] || ''

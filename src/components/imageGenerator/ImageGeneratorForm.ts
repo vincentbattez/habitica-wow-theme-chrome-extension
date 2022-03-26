@@ -1,8 +1,8 @@
-import { taskSelector } from "../../shared/selectors/task.selector";
+import { TaskSelector } from "@shared/selectors/taskSelector";
 
 export function ImageGeneratorForm() {
   const uploadIcon = chrome.runtime.getURL('/images/hud/upload.svg')
-  const colorClass = Array.from(taskSelector.taskHeader().classList)
+  const colorClass = Array.from(TaskSelector.taskHeader().classList)
     .find(classItem => classItem.includes('-modal-bg')).replace('bg', 'text')
 
   return `
@@ -24,14 +24,14 @@ export function ImageGeneratorForm() {
         type="file"
       />
       <p class="img-uploader__or mb-0">Or</p>
-  
+
       <!-- Image from URL -->
       <div class="w-100 text-left">
         <div class="d-flex align-items-end">
           <div class="w-100">
             <label class="mb-1 d-block bold pointer" for="input-url">Image URL</label>
             <input
-              id="input-file"
+              id="input-url"
               data-js="input-url"
               class="img-uploader__input-url w-100 mr-2 ${colorClass}"
               type="url"
@@ -56,12 +56,12 @@ export function ImageGeneratorForm() {
     </div>
   </div>
 </div>
-  
+
 <div class="d-flex ${colorClass}">
   <!-- Quality Selector -->
   <div class="form-group w-100 mr-2">
     <label class="mb-1 d-block bold" for="select-quality">Qualité*</label>
-    <select value="" data-js="select-quality" class="d-block w-100" id="quality-select">
+    <select data-js="select-quality" class="d-block w-100" id="quality-select">
       <option value="poor">Pauvre</option>
       <option value="uncommun">Peu commun</option>
       <option value="rare">Rare</option>

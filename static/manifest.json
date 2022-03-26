@@ -11,12 +11,12 @@
       "resources": [
         "/*"
       ],
-      "matches": [ "https://habitica.com/*" ]
+      "matches": [ "<all_urls>" ]
     }
   ],
   "content_scripts": [
     {
-      "matches": ["https://habitica.com/*"],
+      "matches": ["<all_urls>"],
       "js": ["contentScript.js"],
       "css": ["/styles/contentScript.css"]
     }

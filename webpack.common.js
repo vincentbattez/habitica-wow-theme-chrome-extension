@@ -1,9 +1,9 @@
-const path = require('path');
-
+const CopyPlugin = require('copy-webpack-plugin');
 const DotenvPlugin = require('dotenv-webpack');
 const ESLintPlugin = require('eslint-webpack-plugin');
-const CopyPlugin = require('copy-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
+
+const path = require('path');
 
 module.exports = {
   entry: {
@@ -27,6 +27,12 @@ module.exports = {
   },
   resolve: {
     extensions: ['.ts', '.js'],
+    alias: {
+      "@assets": path.resolve(__dirname, 'src/assets'),
+      "@components": path.resolve(__dirname, 'src/components'),
+      "@services": path.resolve(__dirname, 'src/services'),
+      "@shared": path.resolve(__dirname, 'src/shared'),
+    },
   },
   output: {
     filename: '[name].js',
@@ -37,7 +43,7 @@ module.exports = {
     new DotenvPlugin(),
     new ESLintPlugin({
       extensions: ['js', 'ts'],
-      overrideConfigFile: path.resolve(__dirname, '.eslintrc'),
+      overrideConfigFile: path.resolve(__dirname, '.eslintrc.js'),
     }),
     new MiniCssExtractPlugin({
       filename: 'styles/[name].css',

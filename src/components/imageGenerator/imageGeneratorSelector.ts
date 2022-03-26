@@ -1,4 +1,4 @@
-export const imageGeneratorSelector = {
+export const ImageGeneratorSelector = {
   canvas: (): HTMLCanvasElement => (
     document.querySelector('[data-js="canvas"]')
   ),

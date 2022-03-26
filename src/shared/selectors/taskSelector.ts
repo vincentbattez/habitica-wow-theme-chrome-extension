@@ -1,4 +1,4 @@
-export const taskSelector = {
+export const TaskSelector = {
   formTitle: () => (
     document.querySelector(".task-modal-header .form-group")
   ),

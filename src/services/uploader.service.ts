@@ -1,4 +1,4 @@
-import { blobToBase64 } from "../utils/string.utils";
+import { blobToBase64 } from "@shared/utils/string.utils";
 
 export const UploaderService = {
   image: (blob: string): Promise<string> => {
@@ -13,7 +13,7 @@ export const UploaderService = {
       method: 'POST',
       headers,
       body,
-      redirect: 'follow'
+      redirect: 'follow',
     };
 
     return fetch(url, requestOptions)
@@ -26,5 +26,5 @@ export const UploaderService = {
         console.log("error", error)
         return blob
       });
-  }
+  },
 }

@@ -1,7 +1,7 @@
+import { AudioEnum } from "./audio.enum";
 import { audioSelector } from "./audio.selector";
-import {AudioEnum} from "./audio.enum";
 
-export const audio = {
+export const Audio = {
   set: (audioName: AudioEnum): Promise<void> => {
     const $audio = audioSelector.audio()
     const $audioSourceCollection = audioSelector.sourceCollection()
@@ -20,8 +20,9 @@ export const audio = {
       attributes: true,
       childList: true,
     });
-  }
+  },
 }
+
 
 
 function _replaceSound(mutationCollection: MutationRecord[]): void {
@@ -41,6 +42,6 @@ function _replaceSound(mutationCollection: MutationRecord[]): void {
       .split(".").shift() as AudioEnum
 
     // Change audio
-    await audio.set(audioName)
+    await Audio.set(audioName)
   })
 }

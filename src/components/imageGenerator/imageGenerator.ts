@@ -1,29 +1,30 @@
-import { audio } from "../audio/audio";
-import { AudioEnum } from "../audio/audio.enum";
+import { Audio } from "@components/audio/audio";
+import { AudioEnum } from "@components/audio/audio.enum";
 
+import { UploaderService } from "@services/uploader.service";
+
+import { TaskSelector } from "@shared/selectors/taskSelector";
+import { fetchBlobFromUrl, getImageUrlFromNote } from "@shared/utils/string.utils";
+
+import { ImageGeneratorSizeEnum } from "./imageGenerator.enum";
 import { ImageGeneratorForm } from "./ImageGeneratorForm";
-import { imageGeneratorSelector } from "./imageGenerator.selector";
-import { UploaderService } from "../../services/uploader.service";
-
-import {_fetchBlobFromUrl, getImageUrlFromNote} from "../../utils/string.utils";
-import {taskSelector} from "../../shared/selectors/task.selector";
-import {ImageGeneratorSizeEnum} from "./imageGenerator.enum";
+import { ImageGeneratorSelector } from "./imageGeneratorSelector";
 
 export const imageGenerator = {
   inject: async () => {
-    await audio.set(AudioEnum.Quest_Open)
+    await Audio.set(AudioEnum.Quest_Open)
 
     // Insert image uploader section
-    taskSelector.formTitle()?.insertAdjacentHTML('afterend', ImageGeneratorForm());
+    TaskSelector.formTitle()?.insertAdjacentHTML('afterend', ImageGeneratorForm());
 
-    const $inputFile = imageGeneratorSelector.inputFile()
-    const $selectQuality = imageGeneratorSelector.selectQuality()
-    const $dropZone = imageGeneratorSelector.dropZone()
-    const $buttonCopy = imageGeneratorSelector.buttonCopy()
-    const $buttonUrlSubmit = imageGeneratorSelector.buttonUrlSubmit()
-    const $buttonTask = taskSelector.buttonTask()
-    const $buttonCancelTask = taskSelector.buttonCancelTask()
-    const $buttonDeleteTask = taskSelector.buttonDeleteTask()
+    const $inputFile = ImageGeneratorSelector.inputFile()
+    const $selectQuality = ImageGeneratorSelector.selectQuality()
+    const $dropZone = ImageGeneratorSelector.dropZone()
+    const $buttonCopy = ImageGeneratorSelector.buttonCopy()
+    const $buttonUrlSubmit = ImageGeneratorSelector.buttonUrlSubmit()
+    const $buttonTask = TaskSelector.buttonTask()
+    const $buttonCancelTask = TaskSelector.buttonCancelTask()
+    const $buttonDeleteTask = TaskSelector.buttonDeleteTask()
 
     // Image Generator
     $inputFile.addEventListener('input', _onFileChange)
@@ -37,15 +38,15 @@ export const imageGenerator = {
     $dropZone.addEventListener('drop', _onDrop)
     // Delete task
     $buttonDeleteTask?.addEventListener('click', async () => {
-      await audio.set(AudioEnum.Quest_Delete)
+      await Audio.set(AudioEnum.Quest_Delete)
     })
     // Create task
     $buttonTask.addEventListener('click',  () => {
-      audio.set(AudioEnum.Create_Task)
+      Audio.set(AudioEnum.Create_Task)
     })
     // Close modal
     $buttonCancelTask.addEventListener('click', async () => {
-      await audio.set(AudioEnum.Quest_Close)
+      await Audio.set(AudioEnum.Quest_Close)
     })
 
     _initPreviewImage()
@@ -71,7 +72,7 @@ function _onQualityChange(inputEvent: InputEvent): void {
 }
 
 function _onFileChange(inputEvent: InputEvent): void {
-  const $canvas = imageGeneratorSelector.canvas()
+  const $canvas = ImageGeneratorSelector.canvas()
   const context = $canvas.getContext('2d');
   const $input = inputEvent.target as HTMLInputElement;
   const blob = URL.createObjectURL($input.files[0])
@@ -83,14 +84,14 @@ function _onFileChange(inputEvent: InputEvent): void {
 }
 
 async function _onUpdateImageFormUrl(): Promise<void> {
-  const $urlField = imageGeneratorSelector.inputUrl()
-  const $errorMessage = imageGeneratorSelector.inputUrlError()
-  const blob = await _fetchBlobFromUrl($urlField.value)
+  const $urlField = ImageGeneratorSelector.inputUrl()
+  const $errorMessage = ImageGeneratorSelector.inputUrlError()
+  const blob = await fetchBlobFromUrl($urlField.value)
   $errorMessage.innerHTML = ""
 
   if (!blob) {
     $errorMessage.innerHTML = "Une erreur s'est produite"
-    await audio.set(AudioEnum.Error_Cors)
+    await Audio.set(AudioEnum.Error_Cors)
     return
   }
 
@@ -102,7 +103,7 @@ const DRAG_ZONE_IN_CLASS = 'drop-zone--in'
 
 function _onDrop(dragEvent: DragEvent): void {
   dragEvent.preventDefault()
-  const $inputFile = imageGeneratorSelector.inputFile()
+  const $inputFile = ImageGeneratorSelector.inputFile()
   const files = dragEvent.dataTransfer.files
 
   if (files.length) {
@@ -113,19 +114,21 @@ function _onDrop(dragEvent: DragEvent): void {
   _onDragOut()
 }
 
+
+
 function _onDragIn(dragEvent: DragEvent): void {
   dragEvent.preventDefault()
-  imageGeneratorSelector.dropZone().classList.add(DRAG_ZONE_IN_CLASS);
+  ImageGeneratorSelector.dropZone().classList.add(DRAG_ZONE_IN_CLASS);
 }
 
 function _onDragOut(): void {
-  imageGeneratorSelector.dropZone().classList.remove(DRAG_ZONE_IN_CLASS);
+  ImageGeneratorSelector.dropZone().classList.remove(DRAG_ZONE_IN_CLASS);
 }
 
 // 🎨 Draw preview
 function _drawImage(imageSrc: string, imageSize: number): void {
-  const $canvas = imageGeneratorSelector.canvas()
-  const $preview = imageGeneratorSelector.previewImg()
+  const $canvas = ImageGeneratorSelector.canvas()
+  const $preview = ImageGeneratorSelector.previewImg()
   const context = $canvas.getContext('2d');
   const img = new Image(imageSize, imageSize);
 
@@ -139,7 +142,7 @@ function _drawImage(imageSrc: string, imageSize: number): void {
 
 // Copy image
 async function _onCopyImage(): Promise<void> {
-  const $preview = imageGeneratorSelector.previewImg()
+  const $preview = ImageGeneratorSelector.previewImg()
   const link = await UploaderService.image($preview.src)
   const markdownImage = `![__hwt-img__](${link})`
 
