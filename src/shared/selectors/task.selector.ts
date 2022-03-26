@@ -2,6 +2,15 @@ export const taskSelector = {
   formTitle: () => (
     document.querySelector(".task-modal-header .form-group")
   ),
+  createTaskMenu: () => (
+    document.querySelector('#create-task-btn')
+  ),
+  createTaskCollection: () => (
+    document.querySelectorAll('.create-task-btn')
+  ),
+  quickAddCollection: () => (
+    document.querySelectorAll('.quick-add')
+  ),
   taskCollection: () => (
     document.querySelectorAll('.task-clickable-area')
   ),
