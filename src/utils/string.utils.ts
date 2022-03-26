@@ -28,5 +28,5 @@ export const getImageUrlFromNote = (): string => {
   const note = taskSelector.inputNote().value
   const regex = /!(\[__hwt-img__])\((.*)\)/
 
-  return note.match(regex)[2] || ''
+  return note.match(regex)?.[2] || ''
 }

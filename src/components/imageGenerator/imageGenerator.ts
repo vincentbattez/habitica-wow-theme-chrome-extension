@@ -36,14 +36,12 @@ export const imageGenerator = {
     $dropZone.addEventListener('dragend', _onDragOut)
     $dropZone.addEventListener('drop', _onDrop)
     // Delete task
-    $buttonDeleteTask.addEventListener('click', async () => {
+    $buttonDeleteTask?.addEventListener('click', async () => {
       await audio.set(AudioEnum.Quest_Delete)
     })
     // Create task
-    $buttonTask.addEventListener('click',  (keyEvent: KeyboardEvent) => {
-      if (keyEvent.key === "Enter") {
-        audio.set(AudioEnum.Create_Task)
-      }
+    $buttonTask.addEventListener('click',  () => {
+      audio.set(AudioEnum.Create_Task)
     })
     // Close modal
     $buttonCancelTask.addEventListener('click', async () => {
