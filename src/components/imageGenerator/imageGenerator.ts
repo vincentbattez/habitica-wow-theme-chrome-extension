@@ -114,8 +114,6 @@ function _onDrop(dragEvent: DragEvent): void {
   _onDragOut()
 }
 
-
-
 function _onDragIn(dragEvent: DragEvent): void {
   dragEvent.preventDefault()
   ImageGeneratorSelector.dropZone().classList.add(DRAG_ZONE_IN_CLASS);

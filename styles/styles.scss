@@ -7,6 +7,48 @@ body {
   --best: #033f5e;
 }
 
+[aria-label="Guerrier"],
+[aria-label="Warrior"],
+[aria-label="Guérisseur"],
+[aria-label="Healer"],
+[aria-label="Voleur"],
+[aria-label="Rogue"],
+[aria-label="Mage"] {
+  width: 46px !important;
+  height: 46px !important;
+  background-size: cover;
+  border-radius: 4px;
+  border: 2px solid #6233b3;
+
+  svg {
+    display: none !important;
+  }
+}
+
+[aria-label="Guerrier"],
+[aria-label="Warrior"] {
+  background-image: url(https://i.imgur.com/n9PsaEf.jpg) !important;
+}
+
+[aria-label="Guérisseur"],
+[aria-label="Healer"] {
+  background-image: url(https://i.imgur.com/vjdJQkF.jpg ) !important;
+}
+
+[aria-label="Voleur"],
+[aria-label="Rogue"] {
+  background-image: url(https://i.imgur.com/yWyql7Q.jpg) !important;
+}
+
+[aria-label="Mage"] {
+  background-image: url(https://i.imgur.com/oO0KwmY.jpg) !important;
+}
+
+.member-stats .class-badge {
+  width: auto !important;
+  height: auto !important;
+}
+
 .pointer {
   cursor: pointer;
 }
